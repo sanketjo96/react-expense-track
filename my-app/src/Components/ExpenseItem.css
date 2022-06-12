@@ -1,0 +1,40 @@
+.expense-item-container {
+    min-width: 300px;
+    min-height: 40px;
+    min-height: 40px;
+
+    display: flex;
+    margin: 10px;
+    max-width: 800px;
+    border-radius: 5px;
+    display: flex;
+    box-shadow: 0 5px 20px 10px rgba(0, 0, 0, 0.2);
+    overflow: hidden;
+}
+
+.expense-item-seg.month {
+    background-color: #fa8072;
+    flex: 0 0 50px;
+    font-size: 18px;
+    font-weight: bold;
+    letter-spacing: 2px;
+    color: rgb(255, 255, 255);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.expense-item-container .expense-item-seg {
+    padding: 5px;
+}
+
+.icons {
+    margin-left: 40px;
+    display: flex;
+    justify-content: right;
+}
+.expense-item-seg.icon {
+    width: 10px;
+    height: 10px;
+    cursor: pointer;
+}

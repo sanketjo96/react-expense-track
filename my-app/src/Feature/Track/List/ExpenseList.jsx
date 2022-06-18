@@ -9,9 +9,12 @@ export default class ExpenseList extends Component {
         {this.props.expenseData.map(item => {
           return <ExpenseItem
             key={item.id}
+            id={item.id}
             name={item.name}
             month={item.month}
-            price={item.price}>
+            price={item.price}
+            delete={this.props.delete}
+            update={this.props.update}>
           </ExpenseItem>
         })}
       </div>

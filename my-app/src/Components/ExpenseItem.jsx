@@ -11,11 +11,11 @@ export default function ExpenseItem(props) {
             <div className='expense-item-seg price'>{props.price}</div>
 
             <div className="icons">
-                <div className='expense-item-seg icon' onClick={null}>
+                <div className='expense-item-seg icon' onClick={(e) => props.update(e, props.id)}>
                     <img className='edit-icon' alt={'edit'} src={EditIcon} />
                 </div>
 
-                <div className='expense-item-seg icon' onClick={null}>
+                <div className='expense-item-seg icon' onClick={(e) => props.delete(e, props.id)} >
                     <img className='delete-icon' alt={'delete'} src={DeleteIcon}/>
                 </div>
             </div>

@@ -11,8 +11,10 @@ export default class ExpenseTrack extends Component {
 
     this.state = {
       data: expenseData,
+      isAddMode: true,
       isFormVisible: false,
       formData: {
+        id: '',
         name: '',
         price: '',
         month: 1,
@@ -47,17 +49,62 @@ export default class ExpenseTrack extends Component {
     })
   }
 
-  addExpense = () => {
+  onCancel = () => {
+    this.setState((prevState) => ({
+      ...prevState,
+      isFormVisible: false
+    }))
+  }
+
+  switchToAddForm = () => {
     this.setState((prevState) => ({
       isFormVisible: !prevState.isFormVisible
     }))
   }
 
+  switchToUpdateForm = (e, itemId) => {
+    const { id, name, month, price} = this.state.data.find(item => item.id === itemId)
+    this.setState((prevState) => ({
+      ...prevState,
+      isFormVisible: true,
+      isAddMode: false,
+      formData: {
+        id,
+        name,
+        month,
+        price
+      }
+    }))
+  }
+
   submit = (e) => {
     e.preventDefault()
+    if (this.state.isAddMode) {
+      this.setState((prevState) => ({
+        ...prevState,
+        isFormVisible: false,
+        data: [...prevState.data, { id: uuidv4(), ...prevState.formData }]
+      }))
+    } else {
+      this.setState((prevState) => ({
+        ...prevState,
+        isFormVisible: false,
+        data: prevState.data.map(item => {
+          if (item.id === prevState.formData.id) {
+            return prevState.formData
+          } else {
+            return item;
+          }
+        })
+      }))
+    }
+
+  }
+
+  deleteExpense = (e, id) => {
     this.setState((prevState) => ({
-      isFormVisible: false,
-      data: [...prevState.data, { id: uuidv4(), ...prevState.formData }]
+      ...prevState,
+      data: prevState.data.filter((item) => item.id !== id)
     }))
   }
 
@@ -65,18 +112,19 @@ export default class ExpenseTrack extends Component {
     return (
       <div>
         <ExpensePlot></ExpensePlot>
-        <button className="primary" onClick={this.addExpense} type="submit">Add Expense</button>
+        <button className="primary" onClick={this.switchToAddForm} type="submit">Add Expense</button>
         {
           this.state.isFormVisible
             ? <ExpenseForm
               submit={this.submit}
+              onCancel={this.onCancel}
               name={this.state.formData.name}
               price={this.state.formData.price}
               month={this.state.formData.month}
               onNameChange={this.onNameChange}
               onPriceChange={this.onPriceChange}
               onMonthChange={this.onMonthChange}></ExpenseForm>
-            : <ExpenseList expenseData={this.state.data} ></ExpenseList>
+            : <ExpenseList expenseData={this.state.data} delete={this.deleteExpense} update={this.switchToUpdateForm}></ExpenseList>
         }
 
       </div>

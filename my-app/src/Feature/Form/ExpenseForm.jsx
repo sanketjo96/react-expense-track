@@ -28,7 +28,7 @@ export default class ExpenseForm extends Component {
                     </div>
 
                     <button className="primary" type="submit">Submit</button>
-                    <button onClick={this.hanldeOnCancel}>Cancel</button>
+                    <button onClick={this.props.onCancel}>Cancel</button>
                 </form>
             </div>
         )

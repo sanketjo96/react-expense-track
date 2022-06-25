@@ -4,6 +4,7 @@ import ExpenseForm from '../Form/ExpenseForm'
 import ExpenseList from './List/ExpenseList'
 import ExpensePlot from './Plot/ExpensePlot'
 import { v4 as uuidv4 } from 'uuid';
+import { aggregateExpense } from '../../Service/Transform'
 
 export default class ExpenseTrack extends Component {
   constructor(props) {
@@ -35,7 +36,7 @@ export default class ExpenseTrack extends Component {
     this.setState({
       formData: {
         ...this.state.formData,
-        price: price
+        price: parseInt(price, 10)
       }
     })
   }
@@ -109,9 +110,10 @@ export default class ExpenseTrack extends Component {
   }
 
   render() {
+    const transformedData = aggregateExpense(this.state.data)
     return (
       <div>
-        <ExpensePlot></ExpensePlot>
+        <ExpensePlot y={Object.values(transformedData)} x={Object.keys(transformedData)}></ExpensePlot>
         <button className="primary" onClick={this.switchToAddForm} type="submit">Add Expense</button>
         {
           this.state.isFormVisible

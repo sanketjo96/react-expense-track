@@ -2,11 +2,12 @@ import React from 'react'
 import './ExpenseItem.css'
 import EditIcon from '../icons/icons8-edit.svg'
 import DeleteIcon from '../icons/icons8-remove.svg'
+import { months } from '../Data/Month'
 
 export default function ExpenseItem(props) {
     return (
         <div className='expense-item-container'>
-            <div className='expense-item-seg month'>{props.month}</div>
+            <div className='expense-item-seg month'>{months.find(item => item.id == props.month).name}</div>
             <div className='expense-item-seg name'>{props.name}</div>
             <div className='expense-item-seg price'>{props.price}</div>
 

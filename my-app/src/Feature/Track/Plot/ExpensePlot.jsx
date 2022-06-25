@@ -1,9 +1,21 @@
-import React, { Component } from 'react'
+import React from 'react';
+import Plot from 'react-plotly.js';
 
-export default class ExpensePlot extends Component {
+export default class ExpensePlot extends React.Component {
   render() {
     return (
-      <div>ExpensePlot</div>
-    )
+      <Plot
+        data={[
+          {
+            x: this.props.x,
+            y: this.props.y,
+            type: 'bar',
+            mode: 'lines+markers',
+            marker: {color: 'red'},
+          },
+        ]}
+        layout={{width: 500, height: 340, title: 'A Expense Plot'}}
+      />
+    );
   }
 }
